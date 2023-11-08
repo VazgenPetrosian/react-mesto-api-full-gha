@@ -1,0 +1,12 @@
+.auth__sign-up {
+  color: #fff;
+  font-size: 14px;
+  margin: 15px 0 10px 0;
+  text-decoration: none;
+  transition: opacity 0.3s linear;
+}
+
+.auth__sign-up:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

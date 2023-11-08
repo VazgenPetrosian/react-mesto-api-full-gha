@@ -1,0 +1,8 @@
+.page-not-found {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  font-family: "inter";
+}

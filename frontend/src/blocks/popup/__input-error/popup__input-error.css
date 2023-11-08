@@ -1,0 +1,13 @@
+.popup__input-error {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+  visibility: hidden;
+  /* padding-bottom: 13px; */
+  min-height: 30px;
+}
+.popup__input-error:last-of-type {
+  padding-bottom: 0;
+}

@@ -1,0 +1,13 @@
+.card__trashcan {
+  all: unset;
+  position: absolute;
+  top: 20px;
+  left: 240px;
+  width: 18px;
+  height: 18px;
+  background-image: url(../../../images/trashcan.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}

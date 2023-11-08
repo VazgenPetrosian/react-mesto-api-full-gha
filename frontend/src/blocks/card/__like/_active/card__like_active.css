@@ -1,0 +1,11 @@
+.card__like_active {
+  all: unset;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../../images/active-like.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 20px;
+  cursor: pointer;
+}

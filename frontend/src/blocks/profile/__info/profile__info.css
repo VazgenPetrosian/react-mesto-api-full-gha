@@ -1,0 +1,21 @@
+.profile__info {
+  margin: 0;
+  margin-right: 244px;
+  display: grid;
+  grid-template-areas:
+    "name edit-button"
+    "description -";
+  row-gap: 16px;
+}
+@media (max-width: 910px) {
+  .profile__info {
+    margin-right: 150px;
+  }
+}
+@media (max-width: 780px) {
+  .profile__info {
+    row-gap: 14px;
+    margin: 0;
+    margin-top: 22.25px;
+  }
+}
