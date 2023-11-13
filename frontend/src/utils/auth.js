@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "http://vazgenmesto.nomoredomainsrocks.ru";
 
   const checkApiResponse = (res) => {
     if (res.ok) {
