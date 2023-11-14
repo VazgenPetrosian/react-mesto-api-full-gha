@@ -8,6 +8,7 @@ const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const NotFoundError = require('../errors/NotFoundError');
 const userModel = require('../models/user');
+const { SECRET } = require('../utils/config');
 
 const createUser = (req, res, next) => {
   const {
@@ -87,7 +88,7 @@ const loginUser = (req, res, next) => {
   const { email, password } = req.body;
   return userModel.findUserByCredentials(email, password)
   .then((user) => {
-    const jwtToken = jwt.sign({ _id: user._id}, 'secret-key', { expiresIn: "7d"});
+    const jwtToken = jwt.sign({ _id: user._id}, SECRET, { expiresIn: "7d"});
     res.send({ jwtToken });
   })
   .catch((error) => next(error));
