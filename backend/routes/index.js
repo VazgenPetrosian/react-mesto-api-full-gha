@@ -5,10 +5,10 @@ const NotFound = require('../errors/NotFoundError');
 const { loginUser, createUser } = require('../controllers/user');
 
 router.use('/api/users', auth, require('./userRouter'));
-router.use('/cards', auth, require('./cardRouter'));
+router.use('/api//cards', auth, require('./cardRouter'));
 
-router.use('/signin', validateLogin, loginUser);
-router.use('/signup', validateRegistration, createUser);
+router.use('/api/signin', validateLogin, loginUser);
+router.use('/api/signup', validateRegistration, createUser);
 
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Указанного пути нет'));
