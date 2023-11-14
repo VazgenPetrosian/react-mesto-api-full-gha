@@ -1,6 +1,6 @@
 class Api {
   constructor() {
-    this._baseUrl = "http://vazgenmesto.nomoredomainsrocks.ru/api";
+    this._baseUrl = "https://vazgenmesto.nomoredomainsrocks.ru/api";
   }
 
   _checkApiResponse(res) {
