@@ -4,7 +4,7 @@ const { validateLogin, validateRegistration } = require('../utils/validationConf
 const NotFound = require('../errors/NotFoundError');
 const { loginUser, createUser } = require('../controllers/user');
 
-router.use('/users', auth, require('./userRouter'));
+router.use('/api/users', auth, require('./userRouter'));
 router.use('/cards', auth, require('./cardRouter'));
 
 router.use('/signin', validateLogin, loginUser);
