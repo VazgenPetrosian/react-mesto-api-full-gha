@@ -16,10 +16,12 @@ const createUser = (req, res, next) => {
   } = req.body;
 
   return bcrypt.hash(password, 10)
-  .then((hash) => userModel.create({
+    .then((hash) => userModel.create({
       name, about, avatar, email, password: hash,
     }))
-    .then(() => res.status(HTTP_STATUS_CREATED).send({ name, about, avatar, email, }))
+    .then(() => res.status(HTTP_STATUS_CREATED).send({
+      name, about, avatar, email,
+    }))
     .catch((error) => {
       if (error instanceof ValidationError) {
         next(new BadRequestError(error.message));
@@ -31,34 +33,39 @@ const createUser = (req, res, next) => {
     });
 };
 
-const getUsers = (req, res, next) => { 
+const getUsers = (req, res, next) => {
   userModel
-  .find({})
-  .then((users) => res.status(HTTP_STATUS_OK).send({ data: users}))
-  .catch((error) => next(error)); 
+    .find({})
+    .then((users) => res.status(HTTP_STATUS_OK).send({ data: users }))
+    .catch((error) => next(error));
 };
 
 const getInfoAboutMe = (req, res, next) => {
   userModel.findById(req.user._id)
-    .then((userData) => res.send( userData ))
+    .then((userData) => res.send(userData))
     .catch((error) => next(error));
 };
 
 const getUserById = (req, res, next) => {
   userModel
     .findById(req.params.userId)
-    // .orFail(new NotFoundError('Пользователь с таким ID не найден'))
+    .orFail(new NotFoundError('Пользователь с таким ID не найден'))
     .then((userData) => {
       res.status(HTTP_STATUS_OK).send({ data: userData });
     })
-    .catch(next);
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        next(new BadRequestError('Передан некорректный ID'));
+        return;
+      }
+      next(error);
+    });
 };
 
 const updateUserById = (req, res, next) => {
   const { name, about } = req.body;
 
   userModel.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    // .orFail(new NotFoundError('Пользователь с таким ID не найден.'))
     .then((updatedUserData) => res.send({ data: updatedUserData }))
     .catch((error) => {
       if (error instanceof ValidationError) {
@@ -73,7 +80,6 @@ const updateUserAvatarById = (req, res, next) => {
   const { avatar } = req.body;
 
   userModel.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    // .orFail(new NotFoundError('Некорректный ID пользователя.'))
     .then((newAvatar) => res.send({ data: newAvatar }))
     .catch((error) => {
       if (error instanceof ValidationError) {
@@ -85,14 +91,13 @@ const updateUserAvatarById = (req, res, next) => {
 };
 
 const loginUser = (req, res, next) => {
-  console.log(SECRET);
   const { email, password } = req.body;
   return userModel.findUserByCredentials(email, password)
-  .then((user) => {
-    const jwtToken = jwt.sign({ _id: user._id}, SECRET, { expiresIn: "7d"});
-    res.send({ jwtToken });
-  })
-  .catch((error) => next(error));
+    .then((user) => {
+      const jwtToken = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '7d' });
+      res.send({ jwtToken });
+    })
+    .catch((error) => next(error));
 };
 
 module.exports = {

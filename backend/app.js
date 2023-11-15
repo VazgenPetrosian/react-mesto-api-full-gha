@@ -10,14 +10,14 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 //
 const { PORT } = require('./utils/config');
+
 const app = express();
 app.use(cors());
 //
-mongoose.connect("mongodb://127.0.0.1:27017/mestodb").then(() => console.log('бд запущен'));
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb').then(() => console.log('бд запущен'));
 
 app.use(express.json());
 app.use(helmet());
-
 
 app.use(requestLogger); // подключаем логгер запросов
 
@@ -37,6 +37,3 @@ app.use(errorMiddleware);
 app.listen(PORT, () => {
   console.log(`Приложение запущено на порте ${PORT}`);
 });
-
-
-//proverka

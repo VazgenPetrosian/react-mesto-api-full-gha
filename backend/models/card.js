@@ -14,17 +14,17 @@ const cardSchema = new mongoose.Schema({
     validate: {
       validator: (v) => validator.isURL(v),
       message: 'URL не соответствует требованиям',
-      },
     },
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'userModel',
+    ref: 'user',
     required: true,
   },
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'userModel',
+      ref: 'user',
       default: [],
     },
   ],
